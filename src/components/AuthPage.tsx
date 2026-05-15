@@ -85,20 +85,13 @@ const AuthPage: React.FC<AuthPageProps> = ({ onSignIn }) => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* AI Animated Background Video */}
+      {/* Custom Background Image */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
+        <img
+          src="/WhatsApp Image 2025-07-09 at 10.27.54 AM.jpeg"
+          alt="Fitness Background"
           className="w-full h-full object-cover"
-        >
-          <source
-            src="https://cdn.pixabay.com/video/2023/04/15/158094-820264526_large.mp4"
-            type="video/mp4"
-          />
-        </video>
+        />
 
         {/* Dynamic Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80"></div>

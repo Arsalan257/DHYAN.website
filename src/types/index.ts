@@ -76,6 +76,12 @@ export interface WeightEntry {
   date: Date;
 }
 
+export interface WaterEntry {
+  id: string;
+  amount: number;
+  date: Date;
+}
+
 export interface JournalEntry {
   id: string;
   date: Date;

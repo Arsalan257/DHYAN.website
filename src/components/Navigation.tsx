@@ -1,6 +1,5 @@
 import React from 'react';
-import { Activity, Apple, Dumbbell, User, BarChart3, Moon, Sun, LogOut, Brain } from 'lucide-react';
-
+import { Activity, Apple, Dumbbell, User, BarChart3, Moon, Sun, LogOut, Brain, ShoppingCart } from "lucide-react";
 interface NavigationProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
@@ -21,6 +20,7 @@ const Navigation: React.FC<NavigationProps> = ({
     { id: 'food', label: 'Food', icon: Apple },
     { id: 'workout', label: 'Workout', icon: Dumbbell },
     { id: 'dhyan', label: 'Meditation', icon: Brain },
+    { id: 'store', label: 'Store', icon: ShoppingCart },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
     { id: 'profile', label: 'Profile', icon: User },
   ];
@@ -63,6 +63,7 @@ const Navigation: React.FC<NavigationProps> = ({
           </div>
 
           <div className="flex items-center space-x-4">
+            
             <button
               onClick={onToggleDarkMode}
               className="p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
@@ -74,11 +75,14 @@ const Navigation: React.FC<NavigationProps> = ({
               className="flex items-center space-x-1 p-2 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
               title="Sign Out"
             >
+              
               <LogOut className="h-5 w-5" />
             </button>
           </div>
         </div>
       </div>
+
+      
 
       {/* Mobile Navigation */}
       <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">

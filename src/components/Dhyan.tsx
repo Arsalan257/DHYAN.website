@@ -48,7 +48,7 @@ const Dhyan: React.FC<DhyanProps> = ({ user }) => {
       icon: Wind,
       color: 'text-blue-600',
       bgGradient: 'from-blue-400 to-cyan-400',
-      audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg'
     },
     {
       id: '2',
@@ -59,7 +59,7 @@ const Dhyan: React.FC<DhyanProps> = ({ user }) => {
       icon: Brain,
       color: 'text-purple-600',
       bgGradient: 'from-purple-400 to-pink-400',
-      audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg'
     },
     {
       id: '3',
@@ -70,7 +70,7 @@ const Dhyan: React.FC<DhyanProps> = ({ user }) => {
       icon: Moon,
       color: 'text-indigo-600',
       bgGradient: 'from-indigo-400 to-purple-400',
-      audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg'
     },
     {
       id: '4',
@@ -81,7 +81,7 @@ const Dhyan: React.FC<DhyanProps> = ({ user }) => {
       icon: Zap,
       color: 'text-yellow-600',
       bgGradient: 'from-yellow-400 to-orange-400',
-      audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg'
     },
     {
       id: '5',
@@ -92,7 +92,7 @@ const Dhyan: React.FC<DhyanProps> = ({ user }) => {
       icon: Heart,
       color: 'text-green-600',
       bgGradient: 'from-green-400 to-emerald-400',
-      audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg'
     },
     {
       id: '6',
@@ -103,7 +103,7 @@ const Dhyan: React.FC<DhyanProps> = ({ user }) => {
       icon: Sun,
       color: 'text-orange-600',
       bgGradient: 'from-orange-400 to-red-400',
-      audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg'
     }
   ];
 
@@ -112,28 +112,28 @@ const Dhyan: React.FC<DhyanProps> = ({ user }) => {
       id: 'rain',
       name: 'Rain',
       icon: Waves,
-      audioUrl: 'https://www.soundjay.com/misc/sounds/rain-01.wav',
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg',
       color: 'text-blue-500'
     },
     {
       id: 'ocean',
       name: 'Ocean Waves',
       icon: Waves,
-      audioUrl: 'https://www.soundjay.com/misc/sounds/ocean-wave-1.wav',
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg',
       color: 'text-cyan-500'
     },
     {
       id: 'forest',
       name: 'Forest',
       icon: TreePine,
-      audioUrl: 'https://www.soundjay.com/misc/sounds/forest-1.wav',
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg',
       color: 'text-green-500'
     },
     {
       id: 'mountain',
       name: 'Mountain Wind',
       icon: Mountain,
-      audioUrl: 'https://www.soundjay.com/misc/sounds/wind-1.wav',
+      audioUrl: '/WhatsApp Audio 2025-07-09 at 10.46.04 AM.mpeg',
       color: 'text-gray-500'
     }
   ];

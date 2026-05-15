@@ -5,11 +5,12 @@ import FoodLog from './components/FoodLog';
 import WorkoutLog from './components/WorkoutLog';
 import Progress from './components/Progress';
 import Profile from './components/Profile';
+import Ecommerce from "./components/Ecommerce";
 import Dhyan from './components/Dhyan';
 import AuthPage from './components/AuthPage';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useDarkMode } from './hooks/useDarkMode';
-import { User, FoodEntry, WorkoutEntry, WeightEntry } from './types';
+import { User, FoodEntry, WorkoutEntry, WeightEntry, WaterEntry } from './types';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -20,6 +21,7 @@ function App() {
   const [foodEntries, setFoodEntries] = useLocalStorage<FoodEntry[]>('dhyan-food-entries', []);
   const [workoutEntries, setWorkoutEntries] = useLocalStorage<WorkoutEntry[]>('dhyan-workout-entries', []);
   const [weightEntries, setWeightEntries] = useLocalStorage<WeightEntry[]>('dhyan-weight-entries', []);
+  const [waterEntries, setWaterEntries] = useLocalStorage<WaterEntry[]>('dhyan-water-entries', []);
 
   // Check if user is already authenticated on app load
   React.useEffect(() => {
@@ -75,6 +77,11 @@ function App() {
   const handleAddWeight = (weight: WeightEntry) => {
     setWeightEntries([...weightEntries, weight]);
   };
+  
+
+  const handleAddWater = (water: WaterEntry) => {
+    setWaterEntries([...waterEntries, water]);
+  };
 
   const handleUpdateUser = (updatedUser: User) => {
     setUser(updatedUser);
@@ -93,6 +100,8 @@ function App() {
             user={user}
             foodEntries={foodEntries}
             workoutEntries={workoutEntries}
+            waterEntries={waterEntries}
+            onAddWater={handleAddWater}
           />
         );
       case 'food':
@@ -117,9 +126,12 @@ function App() {
             foodEntries={foodEntries}
             workoutEntries={workoutEntries}
             weightEntries={weightEntries}
+            waterEntries={waterEntries}
             onAddWeight={handleAddWeight}
           />
         );
+      
+        
       case 'profile':
         return (
           <Profile

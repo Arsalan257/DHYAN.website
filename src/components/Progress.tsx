@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import { Calendar, TrendingUp, Target, Award } from 'lucide-react';
-import { FoodEntry, WorkoutEntry, WeightEntry } from '../types';
+import { Calendar, TrendingUp, Target, Award, Droplets } from 'lucide-react';
+import { FoodEntry, WorkoutEntry, WeightEntry, WaterEntry } from '../types';
 import { format, subDays, startOfDay } from 'date-fns';
 
 interface ProgressProps {
   foodEntries: FoodEntry[];
   workoutEntries: WorkoutEntry[];
   weightEntries: WeightEntry[];
+  waterEntries: WaterEntry[];
   onAddWeight: (weight: WeightEntry) => void;
 }
 
-const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weightEntries, onAddWeight }) => {
+const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weightEntries, waterEntries, onAddWeight }) => {
   const [selectedPeriod, setSelectedPeriod] = useState<'week' | 'month'>('week');
   const [showAddWeight, setShowAddWeight] = useState(false);
   const [newWeight, setNewWeight] = useState('');
@@ -33,9 +34,13 @@ const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weight
     const dayWeightEntry = weightEntries.find(entry => 
       format(new Date(entry.date), 'yyyy-MM-dd') === dateStr
     );
+    const dayWaterEntries = waterEntries.filter(entry => 
+      format(new Date(entry.date), 'yyyy-MM-dd') === dateStr
+    );
 
     const caloriesConsumed = dayFoodEntries.reduce((sum, entry) => sum + entry.calories, 0);
     const caloriesBurned = dayWorkoutEntries.reduce((sum, entry) => sum + entry.caloriesBurned, 0);
+    const waterIntake = dayWaterEntries.reduce((sum, entry) => sum + entry.amount, 0);
 
     return {
       date: format(date, selectedPeriod === 'week' ? 'MMM dd' : 'MM/dd'),
@@ -44,6 +49,7 @@ const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weight
       netCalories: caloriesConsumed - caloriesBurned,
       workouts: dayWorkoutEntries.length,
       weight: dayWeightEntry?.weight || null,
+      water: waterIntake,
     };
   });
 
@@ -76,6 +82,10 @@ const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weight
 
   const avgCaloriesBurned = Math.round(
     chartData.reduce((sum, day) => sum + day.caloriesBurned, 0) / periods
+  );
+  
+  const avgWaterIntake = Math.round(
+    chartData.reduce((sum, day) => sum + day.water, 0) / periods
   );
 
   return (
@@ -168,12 +178,12 @@ const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weight
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Avg Burned/Day</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{avgCaloriesBurned}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Calories</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Avg Water/Day</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{avgWaterIntake}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">ml</p>
             </div>
-            <div className="p-2 bg-error-50 dark:bg-error-900/20 rounded-lg">
-              <TrendingUp className="h-5 w-5 text-error-600" />
+            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <Droplets className="h-5 w-5 text-blue-600" />
             </div>
           </div>
         </div>
@@ -181,6 +191,32 @@ const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weight
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Water Intake Chart */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Water Intake</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+              <XAxis dataKey="date" stroke="#6B7280" fontSize={12} />
+              <YAxis stroke="#6B7280" fontSize={12} />
+              <Tooltip 
+                contentStyle={{ 
+                  backgroundColor: '#1F2937', 
+                  border: 'none', 
+                  borderRadius: '8px',
+                  color: '#F9FAFB'
+                }} 
+              />
+              <Bar 
+                dataKey="water" 
+                fill="#3B82F6" 
+                radius={[4, 4, 0, 0]}
+                name="Water (ml)"
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
         {/* Calorie Chart */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Calorie Trends</h3>
@@ -217,31 +253,6 @@ const Progress: React.FC<ProgressProps> = ({ foodEntries, workoutEntries, weight
           </ResponsiveContainer>
         </div>
 
-        {/* Workout Chart */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Workout Frequency</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
-              <XAxis dataKey="date" stroke="#6B7280" fontSize={12} />
-              <YAxis stroke="#6B7280" fontSize={12} />
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: '#1F2937', 
-                  border: 'none', 
-                  borderRadius: '8px',
-                  color: '#F9FAFB'
-                }} 
-              />
-              <Bar 
-                dataKey="workouts" 
-                fill="#3B82F6" 
-                radius={[4, 4, 0, 0]}
-                name="Workouts"
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
       </div>
 
       {/* Weight Chart */}
